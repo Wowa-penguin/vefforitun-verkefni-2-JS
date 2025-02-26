@@ -4,7 +4,7 @@ const getGameStateFromDb = async () => {
     const response = await axios.get("http://localhost:3000/api/v1/game-state");
     return response.data;
   } catch (error) {
-    alert(error);
+    alert("localhost is not runing on port 3000");
     return null;
   }
 };
@@ -55,14 +55,30 @@ soundSelect.addEventListener("change", (event) => {
   sound = synths[currentSound];
 });
 
-const playSound = () => {
+const playSound = (btnValue, event) => {
+  let btnSound;
   const now = Tone.now();
-  sound.triggerAttackRelease("c4", "8n", now);
+  console.log(event);
+  if (event === "click") {
+    btnSound = {
+      red: "c4",
+      yellow: "d4",
+      green: "e4",
+      blue: "f4",
+    };
+  } else if (event === "key") {
+    btnSound = {
+      q: "c4",
+      w: "d4",
+      a: "e4",
+      s: "f4",
+    };
+  }
+  sound.triggerAttackRelease(btnSound[btnValue], "8n", now);
 };
 
 // ### replay and start btn
 const startBtn = document.getElementById("start-btn");
-
 const replayBtn = document.getElementById("replay-btn");
 
 // ### score counter ###
@@ -170,7 +186,11 @@ const playerRound = (scoreValue) => {
       let yellow = yellowContainer.style.backgroundColor;
       let green = greenContainer.style.backgroundColor;
       let blue = blueContainer.style.backgroundColor;
-      playSound();
+      if (event.key == undefined) {
+        playSound(event.target.value, "click");
+      } else {
+        playSound(event.key, "key");
+      }
 
       if (event.key === "q" || event.target.value === "red") {
         playerChoiceArray.push(redContainer.value);
