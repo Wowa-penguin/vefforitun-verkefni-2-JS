@@ -1,21 +1,21 @@
 // ### api ###
+const API = "http://localhost:3000/api/v1";
+
 const getGameStateFromDb = async () => {
   try {
-    const response = await axios.get("http://localhost:3000/api/v1/game-state");
+    const response = await axios.get(`${API}/game-state`);
     return response.data;
   } catch (error) {
     alert("localhost is not runing on port 3000");
     return null;
   }
 };
-
+// /game-state/sequence
 const isValidRound = async (playerArray) => {
   try {
-    const response = await axios.post(
-      "http://localhost:3000/api/v1/game-state/sequence",
-      { sequence: playerArray }
-      // { headers: { "Content-Type": "application/json" } }
-    );
+    const response = await axios.post(`${API}/game-state/sequence`, {
+      sequence: playerArray,
+    });
     return response.data.gameState;
   } catch (error) {
     console.error(error.response.data.message);
