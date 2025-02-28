@@ -1,19 +1,19 @@
 // ### api ###
-const API = "http://localhost:3000/api/v1";
+const API_URL = "http://localhost:3000/api/v1";
 
 const getGameStateFromDb = async () => {
   try {
-    const response = await axios.get(`${API}/game-state`);
+    const response = await axios.get(`${API_URL}/game-state`);
     return response.data;
   } catch (error) {
     alert("localhost is not runing on port 3000");
     return null;
   }
 };
-// /game-state/sequence
+
 const isValidRound = async (playerArray) => {
   try {
-    const response = await axios.post(`${API}/game-state/sequence`, {
+    const response = await axios.post(`${API_URL}/game-state/sequence`, {
       sequence: playerArray,
     });
     return response.data.gameState;
@@ -25,15 +25,15 @@ const isValidRound = async (playerArray) => {
 };
 
 const onStart = async () => {
-  let db = await getGameStateFromDb();
-  let scoreValue = db.level;
-  let highScoreValue = db.highScore;
+  const db = await getGameStateFromDb();
+  const scoreValue = db.level;
+  const highScoreValue = db.highScore;
   levelScore.innerText = scoreValue;
   highScore.innerText = highScoreValue;
   startBtn.addEventListener("click", () => mainGame());
   replayBtn.addEventListener("click", async () => {
-    let db = await getGameStateFromDb();
-    let gameSpeed = setGameSpeed(db.level);
+    const db = await getGameStateFromDb();
+    const gameSpeed = setGameSpeed(db.level);
     gameRound(db.sequence, gameSpeed);
   });
 };
