@@ -13,8 +13,8 @@ const isValidRound = async (playerArray) => {
   try {
     const response = await axios.post(
       "http://localhost:3000/api/v1/game-state/sequence",
-      { sequence: playerArray },
-      { headers: { "Content-Type": "application/json" } }
+      { sequence: playerArray }
+      // { headers: { "Content-Type": "application/json" } }
     );
     return response.data.gameState;
   } catch (error) {
@@ -58,7 +58,6 @@ soundSelect.addEventListener("change", (event) => {
 const playSound = (btnValue, event) => {
   let btnSound;
   const now = Tone.now();
-  console.log(event);
   if (event === "click") {
     btnSound = {
       red: "c4",
@@ -181,11 +180,9 @@ const playerRound = (scoreValue) => {
 
     const handleClick = (event) => {
       replayBtn.disabled = true;
-      let activeColor = "#777";
-      let red = redContainer.style.backgroundColor;
-      let yellow = yellowContainer.style.backgroundColor;
-      let green = greenContainer.style.backgroundColor;
-      let blue = blueContainer.style.backgroundColor;
+      let activeClick = "50%";
+      let originalOpacity = "100%";
+
       if (event.key == undefined) {
         playSound(event.target.value, "click");
       } else {
@@ -194,27 +191,27 @@ const playerRound = (scoreValue) => {
 
       if (event.key === "q" || event.target.value === "red") {
         playerChoiceArray.push(redContainer.value);
-        redContainer.style.backgroundColor = activeColor;
+        redContainer.style.opacity = activeClick;
         setTimeout(() => {
-          redContainer.style.backgroundColor = red;
+          redContainer.style.opacity = originalOpacity;
         }, 250);
       } else if (event.key === "w" || event.target.value === "yellow") {
         playerChoiceArray.push(yellowContainer.value);
-        yellowContainer.style.backgroundColor = activeColor;
+        yellowContainer.style.opacity = activeClick;
         setTimeout(() => {
-          yellowContainer.style.backgroundColor = yellow;
+          yellowContainer.style.opacity = originalOpacity;
         }, 250);
       } else if (event.key === "a" || event.target.value === "green") {
         playerChoiceArray.push(greenContainer.value);
-        greenContainer.style.backgroundColor = activeColor;
+        greenContainer.style.opacity = activeClick;
         setTimeout(() => {
-          greenContainer.style.backgroundColor = green;
+          greenContainer.style.opacity = originalOpacity;
         }, 250);
       } else if (event.key === "s" || event.target.value === "blue") {
         playerChoiceArray.push(blueContainer.value);
-        blueContainer.style.backgroundColor = activeColor;
+        blueContainer.style.opacity = activeClick;
         setTimeout(() => {
-          blueContainer.style.backgroundColor = blue;
+          blueContainer.style.opacity = originalOpacity;
         }, 250);
       }
 
