@@ -100,7 +100,7 @@ const mainGame = async () => {
     levelScore.innerText = scoreValue;
     highScore.innerText = highScoreValue;
     startBtn.disabled = true;
-    await new Promise((resolve) => setTimeout(resolve, 750));
+    await new Promise((resolve) => setTimeout(resolve, 500));
     validGame = await playGame(gameArray, scoreValue);
   }
   resetGame();
@@ -168,6 +168,7 @@ const displayColors = (value, gameSpeed) => {
 
   if (container) {
     container.style.backgroundColor = activeColor;
+    playSound(container.value, "click");
     setTimeout(() => {
       container.style.backgroundColor = originalColor;
     }, gameSpeed / 2);
