@@ -133,14 +133,15 @@ const playGame = async (gameArray, scoreValue) => {
 
 const gameRound = (array, gameSpeed) => {
   return new Promise((resolve) => {
-    for (let i = 0; i < array.length; i++) {
+    // RIP for loop er orðinn of gamal
+    array.forEach((color, index) => {
       setTimeout(() => {
-        displayColors(array[i], gameSpeed);
-        if (i === array.length - 1) {
+        displayColors(color, gameSpeed);
+        if (index === array.length - 1) {
           setTimeout(resolve, gameSpeed);
         }
-      }, i * gameSpeed);
-    }
+      }, index * gameSpeed);
+    });
   });
 };
 
@@ -175,7 +176,7 @@ const displayColors = (value, gameSpeed) => {
   }
 };
 
-const playerRound = (scoreValue) => {
+const playerRound = async (scoreValue) => {
   return new Promise((resolve) => {
     let playerChoiceArray = [];
 
