@@ -93,10 +93,10 @@ const blueContainer = document.getElementById("pad-blue");
 const mainGame = async () => {
   let validGame = 1;
   while (validGame != null) {
-    let db = await getGameStateFromDb();
-    let gameArray = db.sequence;
-    let scoreValue = db.level;
-    let highScoreValue = db.highScore;
+    const db = await getGameStateFromDb();
+    const gameArray = db.sequence;
+    const scoreValue = db.level;
+    const highScoreValue = db.highScore;
     levelScore.innerText = scoreValue;
     highScore.innerText = highScoreValue;
     startBtn.disabled = true;
@@ -108,20 +108,20 @@ const mainGame = async () => {
 };
 
 const resetGame = async () => {
-  let db = await getGameStateFromDb();
-  let scoreValue = db.level;
-  let highScoreValue = db.highScore;
+  const db = await getGameStateFromDb();
+  const scoreValue = db.level;
+  const highScoreValue = db.highScore;
   levelScore.innerText = scoreValue;
   highScore.innerText = highScoreValue;
   startBtn.disabled = false;
 };
 
 const playGame = async (gameArray, scoreValue) => {
-  let gameSpeed = setGameSpeed(scoreValue);
+  const gameSpeed = setGameSpeed(scoreValue);
   replayBtn.disabled = true;
   await gameRound(gameArray, gameSpeed);
   replayBtn.disabled = false;
-  let playerArray = await playerRound(scoreValue);
+  const playerArray = await playerRound(scoreValue);
   const validRound = await isValidRound(playerArray);
   if (validRound == null) {
     scoreValue = 0;
@@ -180,8 +180,8 @@ const playerRound = (scoreValue) => {
 
     const handleClick = (event) => {
       replayBtn.disabled = true;
-      let activeClick = "50%";
-      let originalOpacity = "100%";
+      const activeClick = "50%";
+      const originalOpacity = "100%";
 
       if (event.key == undefined) {
         playSound(event.target.value, "click");
